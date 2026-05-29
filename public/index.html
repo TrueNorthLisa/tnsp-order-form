@@ -500,6 +500,55 @@
     color: #7a5c00;
     line-height: 1.5;
   }
+
+  /* ── PLACEMENT GRID ── */
+  .placement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+  }
+  .placement-card {
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--canvas);
+    user-select: none;
+  }
+  .placement-card:hover { border-color: #bbb; }
+  .placement-card.active {
+    border-color: var(--red);
+    background: #fdf7f6;
+  }
+  .placement-check {
+    width: 16px; height: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .placement-card.active .placement-check {
+    background: var(--red);
+    border-color: var(--red);
+  }
+  .placement-check svg { display: none; }
+  .placement-card.active .placement-check svg { display: block; }
+  .placement-name { font-size: 13px; font-weight: 500; }
+  .placement-colours {
+    margin-top: 8px;
+  }
+  .colour-count {
+    width: 100%;
+    font-size: 13px !important;
+    padding: 6px 8px !important;
+    text-align: center;
+  }
 </style>
 </head>
 <body>
@@ -618,28 +667,78 @@
       <div class="conditional" id="sp-extras">
         <div class="divider"></div>
         <p style="font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Screen Printing Details</p>
-        <div class="field-row three">
-          <div class="field">
-            <label>Number of Print Locations <span class="req">*</span></label>
-            <select id="sp-locations">
-              <option value="">Select</option>
-              <option>1 location</option>
-              <option>2 locations</option>
-              <option>3 locations</option>
-              <option>4+ locations</option>
-            </select>
+
+        <div class="field">
+          <label>Print Placements & Ink Colours <span class="req">*</span></label>
+          <div class="helper" style="margin-bottom:10px;">Select each location and enter the number of ink colours for that placement.</div>
+          <div class="placement-grid" id="sp-placement-grid">
+            <div class="placement-card" data-placement="Left Chest">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info">
+                <div class="placement-name">Left Chest</div>
+                <div class="placement-colours" style="display:none;">
+                  <input type="number" class="colour-count" min="1" max="12" placeholder="# colours" data-placement="Left Chest">
+                </div>
+              </div>
+            </div>
+            <div class="placement-card" data-placement="Centre Front">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info">
+                <div class="placement-name">Centre Front</div>
+                <div class="placement-colours" style="display:none;">
+                  <input type="number" class="colour-count" min="1" max="12" placeholder="# colours" data-placement="Centre Front">
+                </div>
+              </div>
+            </div>
+            <div class="placement-card" data-placement="Full Back">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info">
+                <div class="placement-name">Full Back</div>
+                <div class="placement-colours" style="display:none;">
+                  <input type="number" class="colour-count" min="1" max="12" placeholder="# colours" data-placement="Full Back">
+                </div>
+              </div>
+            </div>
+            <div class="placement-card" data-placement="Left Sleeve">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info">
+                <div class="placement-name">Left Sleeve</div>
+                <div class="placement-colours" style="display:none;">
+                  <input type="number" class="colour-count" min="1" max="12" placeholder="# colours" data-placement="Left Sleeve">
+                </div>
+              </div>
+            </div>
+            <div class="placement-card" data-placement="Right Sleeve">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info">
+                <div class="placement-name">Right Sleeve</div>
+                <div class="placement-colours" style="display:none;">
+                  <input type="number" class="colour-count" min="1" max="12" placeholder="# colours" data-placement="Right Sleeve">
+                </div>
+              </div>
+            </div>
+            <div class="placement-card" data-placement="Back Neck / Nape">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info">
+                <div class="placement-name">Back Neck / Nape</div>
+                <div class="placement-colours" style="display:none;">
+                  <input type="number" class="colour-count" min="1" max="12" placeholder="# colours" data-placement="Back Neck / Nape">
+                </div>
+              </div>
+            </div>
+            <div class="placement-card" data-placement="Other / Custom">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info">
+                <div class="placement-name">Other / Custom</div>
+                <div class="placement-colours" style="display:none;">
+                  <input type="number" class="colour-count" min="1" max="12" placeholder="# colours" data-placement="Other / Custom">
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="field">
-            <label>Ink Colours per Location</label>
-            <select id="sp-colours">
-              <option value="">Select</option>
-              <option>1 colour</option>
-              <option>2 colours</option>
-              <option>3 colours</option>
-              <option>4 colours</option>
-              <option>5+ colours / Full colour (simulated)</option>
-            </select>
-          </div>
+        </div>
+
+        <div class="field-row" style="margin-top:20px;">
           <div class="field">
             <label>Special Inks?</label>
             <select id="sp-special">
@@ -651,8 +750,6 @@
               <option>Not sure</option>
             </select>
           </div>
-        </div>
-        <div class="field-row full" style="margin-bottom:0">
           <div class="field">
             <label>Pantone / Colour Codes (if known)</label>
             <input type="text" id="sp-pantone" placeholder="e.g. PMS 286 C, PMS 485 C — or describe colours">
@@ -664,16 +761,51 @@
       <div class="conditional" id="emb-extras">
         <div class="divider"></div>
         <p style="font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Embroidery Details</p>
-        <div class="field-row">
-          <div class="field">
-            <label>Number of Stitch Locations</label>
-            <select id="emb-locations">
-              <option value="">Select</option>
-              <option>1 location</option>
-              <option>2 locations</option>
-              <option>3+ locations</option>
-            </select>
+
+        <div class="field" style="margin-bottom:20px;">
+          <label>Embroidery Placements</label>
+          <div class="helper" style="margin-bottom:10px;">Select all locations that apply.</div>
+          <div class="placement-grid" id="emb-placement-grid">
+            <div class="placement-card emb-placement" data-placement="Left Chest">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info"><div class="placement-name">Left Chest</div></div>
+            </div>
+            <div class="placement-card emb-placement" data-placement="Centre Front">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info"><div class="placement-name">Centre Front</div></div>
+            </div>
+            <div class="placement-card emb-placement" data-placement="Front">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info"><div class="placement-name">Front</div></div>
+            </div>
+            <div class="placement-card emb-placement" data-placement="Left Sleeve">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info"><div class="placement-name">Left Sleeve</div></div>
+            </div>
+            <div class="placement-card emb-placement" data-placement="Right Sleeve">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info"><div class="placement-name">Right Sleeve</div></div>
+            </div>
+            <div class="placement-card emb-placement" data-placement="Hat Side Left">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info"><div class="placement-name">Hat Side Left</div></div>
+            </div>
+            <div class="placement-card emb-placement" data-placement="Hat Side Right">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info"><div class="placement-name">Hat Side Right</div></div>
+            </div>
+            <div class="placement-card emb-placement" data-placement="Hat Back">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info"><div class="placement-name">Hat Back</div></div>
+            </div>
+            <div class="placement-card emb-placement" data-placement="Other / Not Sure">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info"><div class="placement-name">Other / Not Sure</div></div>
+            </div>
           </div>
+        </div>
+
+        <div class="field-row">
           <div class="field">
             <label>Estimated Stitch Count</label>
             <select id="emb-stitches">
@@ -684,11 +816,10 @@
               <option>15,000+ stitches (full back / complex)</option>
             </select>
           </div>
-        </div>
-        <div class="field-row full" style="margin-bottom:0">
           <div class="field">
             <label>Thread Colours</label>
-            <input type="text" id="emb-colours" placeholder="e.g. Navy, White, Gold — or Pantone refs if known">
+            <input type="text" id="emb-colours" placeholder="e.g. Navy, White, Gold">
+            <div class="notice-box" style="margin-top:8px;">ℹ️ Thread colours cannot be exactly matched to specific Pantone codes. We'll get as close as possible based on your description.</div>
           </div>
         </div>
       </div>
@@ -697,6 +828,7 @@
       <div class="conditional" id="dtf-extras">
         <div class="divider"></div>
         <p style="font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">DTF Details</p>
+        <div class="notice-box" style="margin-bottom:16px;">ℹ️ DTF printing cannot match exact Pantone colours. Colours are printed digitally and may vary slightly from brand standards.</div>
         <div class="field-row">
           <div class="field">
             <label>Print Size (approx.)</label>
@@ -724,6 +856,7 @@
       <div class="conditional" id="vinyl-extras">
         <div class="divider"></div>
         <p style="font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Vinyl / Heat Press Details</p>
+        <div class="notice-box" style="margin-bottom:16px;">ℹ️ Vinyl colours are selected from available stock and cannot be exactly matched to specific Pantone codes. We'll do our best to match your colour description.</div>
         <div class="field-row">
           <div class="field">
             <label>Vinyl Type</label>
@@ -982,6 +1115,47 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// ── PLACEMENT CARD TOGGLES ──
+document.addEventListener('DOMContentLoaded', () => {
+  // Screen printing placements — toggle + show colour count input
+  document.querySelectorAll('#sp-placement-grid .placement-card').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('active');
+      const colours = card.querySelector('.placement-colours');
+      if (colours) colours.style.display = card.classList.contains('active') ? 'block' : 'none';
+      if (!card.classList.contains('active')) {
+        const input = card.querySelector('.colour-count');
+        if (input) input.value = '';
+      }
+    });
+  });
+
+  // Embroidery placements — toggle only, no colour count
+  document.querySelectorAll('#emb-placement-grid .placement-card').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('active');
+    });
+  });
+});
+
+function getSpPlacements() {
+  const results = [];
+  document.querySelectorAll('#sp-placement-grid .placement-card.active').forEach(card => {
+    const name = card.dataset.placement;
+    const colours = card.querySelector('.colour-count')?.value || '';
+    results.push(colours ? `${name} (${colours} colour${colours == 1 ? '' : 's'})` : name);
+  });
+  return results.join(', ');
+}
+
+function getEmbPlacements() {
+  const results = [];
+  document.querySelectorAll('#emb-placement-grid .placement-card.active').forEach(card => {
+    results.push(card.dataset.placement);
+  });
+  return results.join(', ');
+}
+
 // ── SIZE GRID AUTO-TOTAL ──
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.size-input').forEach(input => {
@@ -1124,14 +1298,15 @@ function buildFormSummary(name, email) {
 
   if (activeServices.has('sp')) {
     summary += `\n\nSCREEN PRINTING:`;
-    if (v('sp-locations')) summary += `\n- Locations: ${v('sp-locations')}`;
-    if (v('sp-colours')) summary += `\n- Ink colours: ${v('sp-colours')}`;
+    const spPlacements = getSpPlacements();
+    if (spPlacements) summary += `\n- Placements & colours: ${spPlacements}`;
     if (v('sp-special') && v('sp-special') !== 'None') summary += `\n- Special inks: ${v('sp-special')}`;
     if (v('sp-pantone')) summary += `\n- Pantone/colours: ${v('sp-pantone')}`;
   }
   if (activeServices.has('emb')) {
     summary += `\n\nEMBROIDERY:`;
-    if (v('emb-locations')) summary += `\n- Locations: ${v('emb-locations')}`;
+    const embPlacements = getEmbPlacements();
+    if (embPlacements) summary += `\n- Placements: ${embPlacements}`;
     if (v('emb-stitches')) summary += `\n- Stitch count: ${v('emb-stitches')}`;
     if (v('emb-colours')) summary += `\n- Thread colours: ${v('emb-colours')}`;
   }
@@ -1203,11 +1378,10 @@ function buildFormFields() {
     company:         v('company'),
     referral:        v('referral'),
     services:        Array.from(activeServices),
-    sp_locations:    v('sp-locations'),
-    sp_colours:      v('sp-colours'),
+    sp_placements:   getSpPlacements(),
     sp_special:      v('sp-special'),
     sp_pantone:      v('sp-pantone'),
-    emb_locations:   v('emb-locations'),
+    emb_placements:  getEmbPlacements(),
     emb_stitches:    v('emb-stitches'),
     emb_colours:     v('emb-colours'),
     dtf_size:        v('dtf-size'),
