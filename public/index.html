@@ -422,6 +422,84 @@
   .divider {
     height: 1px; background: var(--border); margin: 24px 0;
   }
+
+  /* ── SUPPLIER LINKS ── */
+  .supplier-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+    padding: 14px 16px;
+    background: var(--parchment);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+  .supplier-links-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .supplier-link {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--red);
+    text-decoration: none;
+    padding: 4px 10px;
+    border: 1px solid var(--red);
+    border-radius: 20px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .supplier-link:hover {
+    background: var(--red);
+    color: white;
+  }
+
+  /* ── SIZE GRID ── */
+  .size-grid {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .size-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 56px;
+    flex: 1;
+  }
+  .size-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .size-input {
+    width: 100%;
+    text-align: center;
+    padding: 10px 6px !important;
+    font-size: 15px !important;
+  }
+
+  /* ── NOTICE BOX ── */
+  .notice-box {
+    margin-top: 8px;
+    padding: 10px 14px;
+    background: #fff8ec;
+    border: 1px solid #e8c96a;
+    border-radius: 3px;
+    font-size: 12px;
+    color: #7a5c00;
+    line-height: 1.5;
+  }
 </style>
 </head>
 <body>
@@ -498,8 +576,7 @@
     </div>
     <div class="section-body">
       <div class="service-grid" id="service-grid">
-        <label class="service-card" onclick="toggleService(this, 'sp')">
-          <input type="checkbox" value="screen-printing">
+        <div class="service-card" data-key="sp">
           <div class="service-check">
             <svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
@@ -507,9 +584,8 @@
             <div class="service-label">Screen Printing</div>
             <div class="service-desc">Best for larger runs (12+). Vibrant, durable ink on tees, hoodies, and more.</div>
           </div>
-        </label>
-        <label class="service-card" onclick="toggleService(this, 'emb')">
-          <input type="checkbox" value="embroidery">
+        </div>
+        <div class="service-card" data-key="emb">
           <div class="service-check">
             <svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
@@ -517,9 +593,8 @@
             <div class="service-label">Embroidery</div>
             <div class="service-desc">Raised thread finish. Great for hats, polos, jackets, and professional wear.</div>
           </div>
-        </label>
-        <label class="service-card" onclick="toggleService(this, 'dtf')">
-          <input type="checkbox" value="dtf">
+        </div>
+        <div class="service-card" data-key="dtf">
           <div class="service-check">
             <svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
@@ -527,9 +602,8 @@
             <div class="service-label">DTF Transfer</div>
             <div class="service-desc">Full colour, no minimums. Perfect for small runs, complex artwork, or one-offs.</div>
           </div>
-        </label>
-        <label class="service-card" onclick="toggleService(this, 'vinyl')">
-          <input type="checkbox" value="vinyl">
+        </div>
+        <div class="service-card" data-key="vinyl">
           <div class="service-check">
             <svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
@@ -537,7 +611,7 @@
             <div class="service-label">Vinyl Heat Press</div>
             <div class="service-desc">Cut vinyl or printed HTV. Names, numbers, simple logos — sharp and clean.</div>
           </div>
-        </label>
+        </div>
       </div>
 
       <!-- Screen Printing extras -->
@@ -685,6 +759,13 @@
       </div>
     </div>
     <div class="section-body">
+      <div class="supplier-links">
+        <span class="supplier-links-label">Browse supplier catalogues:</span>
+        <a href="https://www.ssactivewear.com/ca" target="_blank" rel="noopener" class="supplier-link">S&amp;S Activewear CA</a>
+        <a href="https://www.sanmar.com/ca" target="_blank" rel="noopener" class="supplier-link">SanMar Canada</a>
+        <a href="https://privateagentdnd.com/" target="_blank" rel="noopener" class="supplier-link">Private Agent</a>
+        <a href="https://www.ascolour.com" target="_blank" rel="noopener" class="supplier-link">AS Colour</a>
+      </div>
       <div class="field-row">
         <div class="field">
           <label>Garment Type <span class="req">*</span></label>
@@ -714,21 +795,56 @@
           <div class="helper">Leave blank if you'd like us to recommend</div>
         </div>
       </div>
-      <div class="field-row three">
-        <div class="field">
-          <label>Total Quantity <span class="req">*</span></label>
-          <input type="number" id="qty-total" placeholder="e.g. 48" min="1">
-        </div>
+      <div class="field-row">
         <div class="field">
           <label>Colour(s) of Garment</label>
           <input type="text" id="garment-colours" placeholder="e.g. Black, Navy, White">
         </div>
         <div class="field">
-          <label>Size Breakdown</label>
-          <input type="text" id="size-breakdown" placeholder="e.g. 10S / 20M / 15L / 3XL">
+          <label>Total Quantity <span class="req">*</span></label>
+          <input type="number" id="qty-total" placeholder="Auto-totals from size grid below" min="1" readonly style="background:var(--parchment);cursor:default;">
+          <div class="helper">Calculated from your size breakdown below</div>
         </div>
       </div>
-      <div class="field-row full" style="margin-bottom:0">
+      <div class="field">
+        <label>Size Breakdown</label>
+        <div class="size-grid">
+          <div class="size-col">
+            <div class="size-label">XS</div>
+            <input type="number" class="size-input" data-size="XS" min="0" placeholder="0">
+          </div>
+          <div class="size-col">
+            <div class="size-label">S</div>
+            <input type="number" class="size-input" data-size="S" min="0" placeholder="0">
+          </div>
+          <div class="size-col">
+            <div class="size-label">M</div>
+            <input type="number" class="size-input" data-size="M" min="0" placeholder="0">
+          </div>
+          <div class="size-col">
+            <div class="size-label">L</div>
+            <input type="number" class="size-input" data-size="L" min="0" placeholder="0">
+          </div>
+          <div class="size-col">
+            <div class="size-label">XL</div>
+            <input type="number" class="size-input" data-size="XL" min="0" placeholder="0">
+          </div>
+          <div class="size-col">
+            <div class="size-label">2XL</div>
+            <input type="number" class="size-input" data-size="2XL" min="0" placeholder="0">
+          </div>
+          <div class="size-col">
+            <div class="size-label">3XL</div>
+            <input type="number" class="size-input" data-size="3XL" min="0" placeholder="0">
+          </div>
+          <div class="size-col">
+            <div class="size-label">4XL</div>
+            <input type="number" class="size-input" data-size="4XL" min="0" placeholder="0">
+          </div>
+        </div>
+        <div class="helper" style="margin-top:8px;">Enter quantity per size — total will update automatically. Leave blank for sizes you don't need.</div>
+      </div>
+      <div class="field-row full" style="margin-top:20px;margin-bottom:0">
         <div class="field">
           <label>Garment Notes</label>
           <textarea id="garment-notes" placeholder="Any specific fit, fabric, or sustainability preferences? Mixed garment types? Let us know."></textarea>
@@ -749,7 +865,7 @@
       <div class="field-row">
         <div class="field">
           <label>Artwork Status <span class="req">*</span></label>
-          <select id="artwork-status">
+          <select id="artwork-status" onchange="checkArtworkFee(this)">
             <option value="">— Select —</option>
             <option>I have print-ready vector files (AI, EPS, PDF)</option>
             <option>I have a logo / image but may need cleanup</option>
@@ -757,6 +873,7 @@
             <option>I need design help from scratch</option>
             <option>Using a previous True North file</option>
           </select>
+          <div id="artwork-fee-notice" class="notice-box" style="display:none;">⚠️ An art department fee may apply for file cleanup or design work. Our team will include this in your final quote.</div>
         </div>
         <div class="field">
           <label>Design Placement</label>
@@ -795,7 +912,8 @@
       <div class="field-row">
         <div class="field">
           <label>In-Hands Date</label>
-          <input type="text" id="deadline" placeholder="e.g. June 15, 2026 — or 'ASAP' / 'flexible'">
+          <input type="text" id="deadline" placeholder="e.g. June 15, 2026 — or 'ASAP' / 'flexible'" oninput="checkRushFee(this)">
+          <div id="rush-fee-notice" class="notice-box" style="display:none;">⚠️ Rush orders (ASAP or tight turnarounds) may incur an additional rush fee. Our team will confirm this with you.</div>
         </div>
         <div class="field">
           <label>Budget Per Unit (approx.)</label>
@@ -846,20 +964,62 @@
 // ── SERVICE TOGGLE ──
 const activeServices = new Set();
 
-function toggleService(card, key) {
-  card.classList.toggle('active');
-  const cb = card.querySelector('input[type=checkbox]');
-  cb.checked = !cb.checked;
-  if (activeServices.has(key)) {
-    activeServices.delete(key);
-  } else {
-    activeServices.add(key);
-  }
-  // show/hide conditional sections
-  ['sp','emb','dtf','vinyl'].forEach(k => {
-    const el = document.getElementById(k + '-extras');
-    if (el) el.classList.toggle('visible', activeServices.has(k));
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const key = card.dataset.key;
+      card.classList.toggle('active');
+      if (activeServices.has(key)) {
+        activeServices.delete(key);
+      } else {
+        activeServices.add(key);
+      }
+      ['sp','emb','dtf','vinyl'].forEach(k => {
+        const el = document.getElementById(k + '-extras');
+        if (el) el.classList.toggle('visible', activeServices.has(k));
+      });
+    });
   });
+});
+
+// ── SIZE GRID AUTO-TOTAL ──
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.size-input').forEach(input => {
+    input.addEventListener('input', updateSizeTotal);
+  });
+});
+
+function updateSizeTotal() {
+  let total = 0;
+  document.querySelectorAll('.size-input').forEach(input => {
+    const val = parseInt(input.value) || 0;
+    total += val;
+  });
+  const qtyField = document.getElementById('qty-total');
+  qtyField.value = total > 0 ? total : '';
+}
+
+function getSizeBreakdown() {
+  const parts = [];
+  document.querySelectorAll('.size-input').forEach(input => {
+    const val = parseInt(input.value) || 0;
+    if (val > 0) parts.push(val + input.dataset.size);
+  });
+  return parts.join(' / ') || '';
+}
+
+// ── ARTWORK FEE NOTICE ──
+function checkArtworkFee(select) {
+  const noFeeOptions = ['I have print-ready vector files (AI, EPS, PDF)', 'Using a previous True North file', ''];
+  const notice = document.getElementById('artwork-fee-notice');
+  notice.style.display = noFeeOptions.includes(select.value) ? 'none' : 'block';
+}
+
+// ── RUSH FEE NOTICE ──
+function checkRushFee(input) {
+  const val = input.value.toLowerCase();
+  const isRush = val.includes('asap') || val.includes('rush') || val.includes('urgent') || val.includes('tomorrow');
+  document.getElementById('rush-fee-notice').style.display = isRush ? 'block' : 'none';
 }
 
 // ── FILE UPLOAD ──
@@ -911,7 +1071,7 @@ async function submitForm() {
   if (!email || !email.includes('@')) { showError('Please enter a valid email address.'); return; }
   if (activeServices.size === 0) { showError('Please select at least one decoration type.'); return; }
   if (!garmentType) { showError('Please select a garment type.'); return; }
-  if (!qtyTotal || parseInt(qtyTotal) < 1) { showError('Please enter a quantity.'); return; }
+  if (!qtyTotal || parseInt(qtyTotal) < 1) { showError('Please enter at least one size quantity in the size breakdown.'); return; }
   if (!artworkStatus) { showError('Please tell us about your artwork.'); return; }
 
   // Gather all data
@@ -991,7 +1151,8 @@ function buildFormSummary(name, email) {
   if (v('garment-brand')) summary += `\n- Brand/style: ${v('garment-brand')}`;
   summary += `\n- Total quantity: ${v('qty-total')}`;
   if (v('garment-colours')) summary += `\n- Garment colours: ${v('garment-colours')}`;
-  if (v('size-breakdown')) summary += `\n- Size breakdown: ${v('size-breakdown')}`;
+  const sizeBreakdown = getSizeBreakdown();
+  if (sizeBreakdown) summary += `\n- Size breakdown: ${sizeBreakdown}`;
   if (v('garment-notes')) summary += `\n- Notes: ${v('garment-notes')}`;
 
   summary += `\n\nARTWORK:`;
@@ -1057,7 +1218,7 @@ function buildFormFields() {
     garment_brand:   v('garment-brand'),
     qty_total:       v('qty-total'),
     garment_colours: v('garment-colours'),
-    size_breakdown:  v('size-breakdown'),
+    size_breakdown:  getSizeBreakdown(),
     garment_notes:   v('garment-notes'),
     artwork_status:  v('artwork-status'),
     design_placement:v('design-placement'),
