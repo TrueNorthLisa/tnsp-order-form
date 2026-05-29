@@ -263,15 +263,28 @@
   .file-chip {
     background: var(--parchment);
     border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 4px 12px;
+    border-radius: 4px;
+    padding: 8px 12px;
     font-size: 12px;
     font-family: 'DM Mono', monospace;
-    display: flex; align-items: center; gap: 6px;
+    display: flex; align-items: center; gap: 10px;
+    flex-wrap: wrap;
   }
+  .file-chip span { flex-shrink: 0; }
   .file-chip button {
     background: none; border: none; cursor: pointer; color: var(--muted);
-    font-size: 14px; line-height: 1; padding: 0;
+    font-size: 14px; line-height: 1; padding: 0; flex-shrink: 0;
+  }
+  .file-placement-select {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px !important;
+    padding: 4px 28px 4px 8px !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 3px !important;
+    background: var(--white) !important;
+    cursor: pointer;
+    flex: 1;
+    min-width: 140px;
   }
 
   /* ── COLOUR SWATCHES ── */
@@ -753,6 +766,7 @@
           <div class="field">
             <label>Pantone / Colour Codes (if known)</label>
             <input type="text" id="sp-pantone" placeholder="e.g. PMS 286 C, PMS 485 C — or describe colours">
+          <div class="notice-box" style="margin-top:8px;">⚠️ Exact Pantone matching is available but requires an additional fee. Without it, our team will match as closely as possible from our ink range (up to Pantone C 7000 series).</div>
           </div>
         </div>
       </div>
@@ -774,9 +788,9 @@
               <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               <div class="placement-info"><div class="placement-name">Centre Front</div></div>
             </div>
-            <div class="placement-card emb-placement" data-placement="Front">
+            <div class="placement-card emb-placement" data-placement="Hat Front">
               <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="placement-info"><div class="placement-name">Front</div></div>
+              <div class="placement-info"><div class="placement-name">Hat Front</div></div>
             </div>
             <div class="placement-card emb-placement" data-placement="Left Sleeve">
               <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -797,6 +811,10 @@
             <div class="placement-card emb-placement" data-placement="Hat Back">
               <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               <div class="placement-info"><div class="placement-name">Hat Back</div></div>
+            </div>
+            <div class="placement-card emb-placement" data-placement="Centre Back">
+              <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="placement-info"><div class="placement-name">Centre Back</div></div>
             </div>
             <div class="placement-card emb-placement" data-placement="Other / Not Sure">
               <div class="placement-check"><svg width="10" height="8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -894,8 +912,8 @@
     <div class="section-body">
       <div class="supplier-links">
         <span class="supplier-links-label">Browse supplier catalogues:</span>
-        <a href="https://www.ssactivewear.com/ca" target="_blank" rel="noopener" class="supplier-link">S&amp;S Activewear CA</a>
-        <a href="https://www.sanmar.com/ca" target="_blank" rel="noopener" class="supplier-link">SanMar Canada</a>
+        <a href="https://en-ca.ssactivewear.com/" target="_blank" rel="noopener" class="supplier-link">S&amp;S Activewear CA</a>
+        <a href="https://www.sanmarcanada.com/" target="_blank" rel="noopener" class="supplier-link">SanMar Canada</a>
         <a href="https://privateagentdnd.com/" target="_blank" rel="noopener" class="supplier-link">Private Agent</a>
         <a href="https://www.ascolour.com" target="_blank" rel="noopener" class="supplier-link">AS Colour</a>
       </div>
@@ -995,7 +1013,7 @@
       </div>
     </div>
     <div class="section-body">
-      <div class="field-row">
+      <div class="field-row full">
         <div class="field">
           <label>Artwork Status <span class="req">*</span></label>
           <select id="artwork-status" onchange="checkArtworkFee(this)">
@@ -1007,10 +1025,6 @@
             <option>Using a previous True North file</option>
           </select>
           <div id="artwork-fee-notice" class="notice-box" style="display:none;">⚠️ An art department fee may apply for file cleanup or design work. Our team will include this in your final quote.</div>
-        </div>
-        <div class="field">
-          <label>Design Placement</label>
-          <input type="text" id="design-placement" placeholder="e.g. Left chest + full back, Centre chest">
         </div>
       </div>
       <div class="field-row full">
@@ -1119,7 +1133,9 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   // Screen printing placements — toggle + show colour count input
   document.querySelectorAll('#sp-placement-grid .placement-card').forEach(card => {
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (e) => {
+      // Don't toggle if clicking inside the colour count input
+      if (e.target.classList.contains('colour-count')) return;
       card.classList.toggle('active');
       const colours = card.querySelector('.placement-colours');
       if (colours) colours.style.display = card.classList.contains('active') ? 'block' : 'none';
@@ -1127,14 +1143,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const input = card.querySelector('.colour-count');
         if (input) input.value = '';
       }
+      refreshFilePlacements();
     });
+  });
+  // Prevent colour count input clicks from bubbling to card
+  document.querySelectorAll('.colour-count').forEach(input => {
+    input.addEventListener('click', e => e.stopPropagation());
+    input.addEventListener('mousedown', e => e.stopPropagation());
   });
 
   // Embroidery placements — toggle only, no colour count
   document.querySelectorAll('#emb-placement-grid .placement-card').forEach(card => {
     card.addEventListener('click', () => {
       card.classList.toggle('active');
+      refreshFilePlacements();
     });
+  });
+
+  // Also refresh placements when service cards are toggled
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('click', () => setTimeout(refreshFilePlacements, 50));
   });
 });
 
@@ -1213,14 +1241,47 @@ uploadZone.addEventListener('drop', e => {
   Array.from(e.dataTransfer.files).forEach(addFile);
 });
 
+function getActivePlacements() {
+  const placements = [];
+  // SP placements
+  document.querySelectorAll('#sp-placement-grid .placement-card.active').forEach(c => placements.push(c.dataset.placement));
+  // Emb placements
+  document.querySelectorAll('#emb-placement-grid .placement-card.active').forEach(c => placements.push(c.dataset.placement));
+  // DTF/vinyl — add generic options if active
+  if (activeServices.has('dtf')) placements.push('DTF — Front', 'DTF — Back', 'DTF — Sleeve');
+  if (activeServices.has('vinyl')) placements.push('Vinyl — Front', 'Vinyl — Back', 'Vinyl — Sleeve');
+  return [...new Set(placements)]; // dedupe
+}
+
+function buildPlacementOptions(placements) {
+  const base = '<option value="">— Select placement —</option>';
+  if (!placements.length) return base + '<option value="Not specified">Not specified</option>';
+  return base + placements.map(p => `<option value="${p}">${p}</option>`).join('');
+}
+
+function refreshFilePlacements() {
+  const placements = getActivePlacements();
+  document.querySelectorAll('.file-placement-select').forEach(sel => {
+    const current = sel.value;
+    sel.innerHTML = buildPlacementOptions(placements);
+    if (current) sel.value = current;
+  });
+}
+
 function addFile(file) {
   const id = Date.now() + Math.random();
-  fileMap.set(id, file);
+  fileMap.set(id, { file, placement: '' });
   const list = document.getElementById('file-list');
   const chip = document.createElement('div');
   chip.className = 'file-chip';
   chip.dataset.id = id;
-  chip.innerHTML = `📄 ${file.name} <button onclick="removeFile(${id}, this)">×</button>`;
+  const placements = getActivePlacements();
+  chip.innerHTML = `
+    <span>📄 ${file.name}</span>
+    <select class="file-placement-select" onchange="fileMap.get(${id}).placement = this.value">
+      ${buildPlacementOptions(placements)}
+    </select>
+    <button onclick="removeFile(${id}, this)">×</button>`;
   list.appendChild(chip);
 }
 
@@ -1332,9 +1393,15 @@ function buildFormSummary(name, email) {
 
   summary += `\n\nARTWORK:`;
   summary += `\n- Status: ${v('artwork-status')}`;
-  if (v('design-placement')) summary += `\n- Placement: ${v('design-placement')}`;
   if (v('design-notes')) summary += `\n- Design notes: ${v('design-notes')}`;
-  if (fileMap.size > 0) summary += `\n- Files attached: ${Array.from(fileMap.values()).map(f=>f.name).join(', ')}`;
+  if (fileMap.size > 0) {
+    const fileDetails = Array.from(fileMap.values()).map(f => {
+      const name = f.file ? f.file.name : f;
+      const placement = f.placement ? ` → ${f.placement}` : '';
+      return name + placement;
+    }).join(', ');
+    summary += `\n- Files attached: ${fileDetails}`;
+  }
 
   summary += `\n\nTIMELINE & BUDGET:`;
   if (v('deadline')) summary += `\n- In-hands date: ${v('deadline')}`;
@@ -1395,9 +1462,8 @@ function buildFormFields() {
     size_breakdown:  getSizeBreakdown(),
     garment_notes:   v('garment-notes'),
     artwork_status:  v('artwork-status'),
-    design_placement:v('design-placement'),
     design_notes:    v('design-notes'),
-    files_attached:  Array.from(fileMap.values()).map(f => f.name),
+    files_attached:  Array.from(fileMap.values()).map(f => (f.file ? f.file.name : f) + (f.placement ? ` → ${f.placement}` : '')),
     deadline:        v('deadline'),
     budget:          v('budget'),
     extra_notes:     v('extra-notes'),
