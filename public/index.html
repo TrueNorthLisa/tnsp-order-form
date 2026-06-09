@@ -659,7 +659,7 @@ async function submitForm() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(fields),
     });
-    if (!res.ok) throw new Error('Save error');
+    if (!res.ok) { const t = await res.text(); throw new Error(res.status + ': ' + t.slice(0,200)); }
 
     document.getElementById('loading-bar').classList.remove('visible');
     document.getElementById('conf-name').textContent = name.split(' ')[0];
@@ -672,7 +672,7 @@ async function submitForm() {
 
   } catch(err) {
     document.getElementById('loading-bar').classList.remove('visible');
-    showError('Something went wrong. Please email us directly at sales@truenorthscreenprinting.ca');
+    showError('Error: ' + err.message + ' — please email sales@truenorthscreenprinting.ca');
     document.getElementById('submit-btn').disabled = false;
   }
 }
