@@ -164,7 +164,7 @@ exports.handler = async (event) => {
 
   <!-- CTA -->
   <tr><td style="padding:20px 0;text-align:center;">
-    <a href="https://tnspquotes.netlify.app" style="display:inline-block;background:#e8c547;color:#0d0d0d;text-decoration:none;padding:14px 32px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:4px;">Open Quote Builder →</a>
+    <a href="https://tnspquote.netlify.app" style="display:inline-block;background:#e8c547;color:#0d0d0d;text-decoration:none;padding:14px 32px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:4px;">Open Quote Builder →</a>
   </td></tr>
 
   <!-- Footer -->
